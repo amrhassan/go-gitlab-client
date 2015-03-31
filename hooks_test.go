@@ -21,9 +21,10 @@ func TestParsePushHook(t *testing.T) {
 	p, err := ParseHook([]byte(stub))
 
 	assert.Equal(t, err, nil)
+    assert.Equal(t, p.ObjectKind, "push")
 	assert.IsType(t, new(HookPayload), p)
 	assert.Equal(t, p.After, "da1560886d4f094c3e6c9ef40349f7d38b5d27d7")
-	assert.Equal(t, p.Repository.URL, "git@localhost:diaspora.git")
+	assert.Equal(t, p.Repository.URL, "git@example.com:mike/diasporadiaspora.git")
 	assert.Equal(t, len(p.Commits), 2)
 	assert.Equal(t, p.Commits[0].Author.Email, "jordi@softcatala.org")
 	assert.Equal(t, p.Commits[1].Id, "da1560886d4f094c3e6c9ef40349f7d38b5d27d7")
