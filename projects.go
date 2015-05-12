@@ -63,7 +63,7 @@ type Project struct {
 	PathWithNamespace    string       `json:"path_with_namespace,omitempty"`
 	IssuesEnabled        bool         `json:"issues_enabled,omitempty"`
 	MergeRequestsEnabled bool         `json:"merge_requests_enabled,omitempty"`
-	WallEnabled          bool         `json:"wall_enabled,omitempty"`
+	SnippetsEnabled      bool         `json:"snippets_enabled,omitempty"`
 	WikiEnabled          bool         `json:"wiki_enabled,omitempty"`
 	CreatedAtRaw         string       `json:"created_at,omitempty"`
 	Namespace            *Namespace   `json:"namespace,omitempty"`
@@ -71,6 +71,7 @@ type Project struct {
 	HttpRepoUrl          string       `json:"http_url_to_repo"`
 	Url                  string       `json:"web_url"`
 	Permissions          *Permissions `json:"permissions,omitempty"`
+	VisibilityLevel      int          `json:"visibility_level,omitempty"`
 }
 
 type MergeRequest struct {
