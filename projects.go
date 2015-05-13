@@ -2,6 +2,7 @@ package gogitlab
 
 import (
 	"encoding/json"
+	"net/url"
 	"strconv"
 )
 
@@ -151,6 +152,27 @@ func (g *Gitlab) Project(id string) (*Project, error) {
 	var project *Project
 
 	contents, err := g.buildAndExecRequestRaw("GET", url, opaque, nil)
+	if err == nil {
+		err = json.Unmarshal(contents, &project)
+	}
+
+	return project, err
+}
+
+/*
+Creates a new project owned by the authenticated user.
+*/
+func (g *Gitlab) CreateProject(params map[string]string) (*Project, error) {
+
+	path := g.ResourceUrl(projects_url, nil)
+	vals := url.Values{}
+	for k, v := range params {
+		vals.Set(k, v)
+	}
+	body := vals.Encode()
+
+	var project *Project
+	contents, err := g.buildAndExecRequest("POST", path, []byte(body))
 	if err == nil {
 		err = json.Unmarshal(contents, &project)
 	}
